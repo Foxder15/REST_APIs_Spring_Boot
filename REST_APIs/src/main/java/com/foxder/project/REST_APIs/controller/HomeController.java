@@ -12,6 +12,7 @@ public class HomeController {
         this.app = app;
     }
 
+    //Get App information.
     @GetMapping
     public App getApp() {
 

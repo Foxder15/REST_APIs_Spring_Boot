@@ -27,7 +27,8 @@ import java.util.List;
 public class EmployeeController {
     
     EmployeeService employeeService;
-    
+
+    // Fetch all employees.
     @GetMapping
     public ResponseEntity<ApiResponse<List<EmployeeResponse>>> fetchAllEmployees() {
         List<EmployeeResponse> employeeResponseList = this.employeeService.fetchAllEmployees();
@@ -35,6 +36,7 @@ public class EmployeeController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    // Fetch employee by id.
     @GetMapping("/{Employee_id}")
     public ResponseEntity<ApiResponse<EmployeeDetailResponse>> fetchEmployeeById(@PathVariable("Employee_id") Long Employee_id) {
         EmployeeDetailResponse employeeDetailResponse = this.employeeService.fetchEmployeeById(Employee_id);
@@ -42,6 +44,7 @@ public class EmployeeController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    // Post a new employee.
     @PostMapping
     public ResponseEntity<ApiResponse<Employee>> createEmployee(@Valid @RequestBody PostEmployeeRequest employeeRequest) {
         Employee employee = this.employeeService.createEmployee(employeeRequest);
@@ -49,6 +52,7 @@ public class EmployeeController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
+    // Delete an employee by id.
     @DeleteMapping("/{Employee_id}")
     public ResponseEntity<ApiResponse<Employee>> deleteEmployee(@PathVariable("Employee_id") Long Employee_id) {
         Employee employee = this.employeeService.deleteEmployee(Employee_id);
@@ -56,6 +60,7 @@ public class EmployeeController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    // Update an employee by id.
     @PutMapping("/{Employee_id}")
     public ResponseEntity<ApiResponse<EmployeeResponse>> updateEmployee(@PathVariable("Employee_id") Long Employee_id, @RequestBody UpdateEmployeeRequest employeeRequest) {
         EmployeeResponse employeeResponse = this.employeeService.updateEmployee(Employee_id, employeeRequest);
@@ -63,6 +68,7 @@ public class EmployeeController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    // Add shifts to employee.
     @PostMapping("/{Employee_id}/shifts")
     public ResponseEntity<ApiResponse<EmployeeDetailResponse>> addShiftToEmployee(@PathVariable("Employee_id") Long Employee_id,
                                                                                   @RequestBody ShiftEmployeeRequest shiftEmployeeRequest) {

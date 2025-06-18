@@ -21,6 +21,7 @@ import java.util.List;
 public class ShiftsController {
     ShiftsService shiftsService;
 
+    // Fetch all shifts.
     @GetMapping
     public ResponseEntity<ApiResponse<List<ShiftsResponse>>> fetchAllShifts() {
         List<ShiftsResponse> shiftsResponseList = this.shiftsService.fetchAllShifts();
@@ -28,6 +29,7 @@ public class ShiftsController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    // Post a new shifts.
     @PostMapping
     public ResponseEntity<ApiResponse<Shifts>>  save(@RequestBody PostShiftsRequest shiftsRequest) {
         Shifts shifts = shiftsService.save(shiftsRequest);
