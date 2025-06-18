@@ -1,8 +1,9 @@
 package com.foxder.project.REST_APIs.mapper;
 
-import com.foxder.project.REST_APIs.DTOs.request.PostEmployeeRequest;
-import com.foxder.project.REST_APIs.DTOs.request.UpdateEmployeeRequest;
-import com.foxder.project.REST_APIs.DTOs.response.EmployeeResponse;
+import com.foxder.project.REST_APIs.DTOs.request.employee.PostEmployeeRequest;
+import com.foxder.project.REST_APIs.DTOs.request.employee.UpdateEmployeeRequest;
+import com.foxder.project.REST_APIs.DTOs.response.employee.EmployeeDetailResponse;
+import com.foxder.project.REST_APIs.DTOs.response.employee.EmployeeResponse;
 import com.foxder.project.REST_APIs.model.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -15,6 +16,8 @@ public interface EmployeeMapper {
     Employee toEmployee(PostEmployeeRequest requestEmployee);
 
     EmployeeResponse toEmployeeResponse(Employee employeeEmployee);
+
+    EmployeeDetailResponse toEmployeeDetailResponse(Employee employeeEmployee);
 
     void employeeRequestToEmployee(UpdateEmployeeRequest requestEmployee, @MappingTarget Employee employee);
 }

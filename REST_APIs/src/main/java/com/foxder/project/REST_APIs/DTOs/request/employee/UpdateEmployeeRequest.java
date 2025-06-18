@@ -1,4 +1,4 @@
-package com.foxder.project.REST_APIs.DTOs.request;
+package com.foxder.project.REST_APIs.DTOs.request.employee;
 
 import jakarta.validation.constraints.Size;
 import lombok.*;

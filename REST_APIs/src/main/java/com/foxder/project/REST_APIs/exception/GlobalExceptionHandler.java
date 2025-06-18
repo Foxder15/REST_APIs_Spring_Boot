@@ -37,10 +37,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = RuntimeException.class)
-    public ResponseEntity<String> handleException(RuntimeException ex) {
-        return new ResponseEntity<>("Fail to request", HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(value = ShiftExistedException.class)
+    public ResponseEntity<ApiResponse<String>> handleShiftExistedException(ShiftExistedException ex) {
+        ApiResponse<String> apiResponse = new ApiResponse<>(HttpStatus.CONFLICT.value(), ex.getMessage(), null);
+        return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(value = ShiftNotFoundException.class)
+    public ResponseEntity<ApiResponse<String>> handleShiftNotFoundException(ShiftNotFoundException ex) {
+        ApiResponse<String> apiResponse = new ApiResponse<>(HttpStatus.NOT_FOUND.value(), ex.getMessage(), null);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+    }
+
+//    @ExceptionHandler(value = RuntimeException.class)
+//    public ResponseEntity<String> handleException(RuntimeException ex) {
+//        return new ResponseEntity<>("Fail to request", HttpStatus.BAD_REQUEST);
+//    }
 
     @ExceptionHandler(value = ServletException.class)
     public ResponseEntity<String> handleNoHandlerFoundException(ServletException ex) {

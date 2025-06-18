@@ -1,10 +1,13 @@
 package com.foxder.project.REST_APIs.controller;
 
 
-import com.foxder.project.REST_APIs.DTOs.request.PostEmployeeRequest;
-import com.foxder.project.REST_APIs.DTOs.request.UpdateEmployeeRequest;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.foxder.project.REST_APIs.DTOs.request.employee.PostEmployeeRequest;
+import com.foxder.project.REST_APIs.DTOs.request.employee.UpdateEmployeeRequest;
+import com.foxder.project.REST_APIs.DTOs.request.shifts.ShiftEmployeeRequest;
 import com.foxder.project.REST_APIs.DTOs.response.ApiResponse;
-import com.foxder.project.REST_APIs.DTOs.response.EmployeeResponse;
+import com.foxder.project.REST_APIs.DTOs.response.employee.EmployeeDetailResponse;
+import com.foxder.project.REST_APIs.DTOs.response.employee.EmployeeResponse;
 import com.foxder.project.REST_APIs.model.Employee;
 import com.foxder.project.REST_APIs.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -15,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,9 +36,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/{Employee_id}")
-    public ResponseEntity<ApiResponse<EmployeeResponse>> fetchEmployeeById(@PathVariable("Employee_id") Long Employee_id) {
-        EmployeeResponse employeeResponse = this.employeeService.fetchEmployeeById(Employee_id);
-        ApiResponse<EmployeeResponse> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "Success", employeeResponse);
+    public ResponseEntity<ApiResponse<EmployeeDetailResponse>> fetchEmployeeById(@PathVariable("Employee_id") Long Employee_id) {
+        EmployeeDetailResponse employeeDetailResponse = this.employeeService.fetchEmployeeById(Employee_id);
+        ApiResponse<EmployeeDetailResponse> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "Success", employeeDetailResponse);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
@@ -58,6 +60,14 @@ public class EmployeeController {
     public ResponseEntity<ApiResponse<EmployeeResponse>> updateEmployee(@PathVariable("Employee_id") Long Employee_id, @RequestBody UpdateEmployeeRequest employeeRequest) {
         EmployeeResponse employeeResponse = this.employeeService.updateEmployee(Employee_id, employeeRequest);
         ApiResponse<EmployeeResponse> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "Employee Updated", employeeResponse);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/{Employee_id}/shifts")
+    public ResponseEntity<ApiResponse<EmployeeDetailResponse>> addShiftToEmployee(@PathVariable("Employee_id") Long Employee_id,
+                                                                                  @RequestBody ShiftEmployeeRequest shiftEmployeeRequest) {
+        EmployeeDetailResponse employeeDetailResponse = this.employeeService.addShiftToEmployee(Employee_id, shiftEmployeeRequest);
+        ApiResponse<EmployeeDetailResponse> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "success", employeeDetailResponse);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 

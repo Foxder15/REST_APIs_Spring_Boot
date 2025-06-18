@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,4 +31,14 @@ public class Employee {
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy h:mma")
     LocalDateTime joined_date;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<EmployeeShifts> shifts;
+
+    public void addShiftToEmployee(EmployeeShifts shift) {
+        if (this.shifts == null) {
+            this.shifts = new ArrayList<>();
+        }
+        this.shifts.add(shift);
+    }
 }

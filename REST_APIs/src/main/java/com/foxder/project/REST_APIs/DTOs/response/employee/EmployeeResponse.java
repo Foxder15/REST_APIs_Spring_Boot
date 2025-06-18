@@ -1,7 +1,8 @@
-package com.foxder.project.REST_APIs.DTOs.response;
+package com.foxder.project.REST_APIs.DTOs.response.employee;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 
 @Data
 @AllArgsConstructor
